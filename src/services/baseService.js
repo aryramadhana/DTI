@@ -12,7 +12,7 @@ const createAxiosInterceptor = (url) => {
   const axiosCreate = axios.create({
     baseURL: url,
     headers: {
-      Accept: 'application/json',
+      Accept: '/',
       'Accept-Language': 'es',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getTokenAuth()}`,
