@@ -3,7 +3,7 @@ import { getCookie } from '../utils/cookie';
 
 function getTokenAuth() {
   if (getCookie('token') && getCookie('userData')) {
-    return JSON.parse(getCookie('token')).value;
+    return JSON.parse(getCookie('token'));
   }
   return '';
 }
@@ -12,7 +12,7 @@ const createAxiosInterceptor = (url) => {
   const axiosCreate = axios.create({
     baseURL: url,
     headers: {
-      Accept: '/',
+      Accept: '/login',
       'Accept-Language': 'es',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${getTokenAuth()}`,
@@ -20,9 +20,11 @@ const createAxiosInterceptor = (url) => {
   });
   axiosCreate.interceptors.response.use(
     (response) => {
+      console.log(response,'line 23')
       return response.data;
     },
     (error) => {
+      console.log(error);
       if (error.response.status === 401) {
         window.location.replace('/');
       }
